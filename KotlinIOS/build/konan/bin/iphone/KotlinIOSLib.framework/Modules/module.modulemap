@@ -1,0 +1,6 @@
+framework module KotlinIOSLib {
+    umbrella header "KotlinIOSLib.h"
+
+    export *
+    module * { export * }
+}
