@@ -3,13 +3,14 @@
 //
 
 import UIKit
+import KotlinIOSLib
 
 class ViewController: UIViewController {
 
     @IBOutlet weak var label: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        label.text = "Some placeholder"
+        label.text = KIOSLWords().getWords()
     }
 
 }
