@@ -15,5 +15,5 @@ version '0.1'
 apply plugin: "konan"
 konan.targets = ["iphone", "iphone_sim"]
 konanArtifacts {
-    framework('nativeLibs')
+    framework('KotlinIOSLib')
 }
