@@ -1,0 +1,115 @@
+* Kotlin for Domain Logic
+* What Kotlin?
+  To install homebrew 
+  #+BEGIN_SRC sh
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  #+END_SRC
+
+  1. Install Kotlin compiler
+     #+BEGIN_SRC sh
+     brew install kotlin
+     #+END_SRC
+  2. Install KotlinNative compiler
+      from [[https://github.com/JetBrains/kotlin-native/releases][github release]] download and extract to home director.
+      Then place it in the path or place it in your .bashrc or .zshrc
+      #+BEGIN_SRC sh
+      export PATH=$PATH:~/kotlin-native/bin
+      #+END_SRC
+  3. Install IntellijeIdea
+     Go to intellij and download the binary
+  4. Install Gradle 
+     #+BEGIN_SRC 
+     brew install gradle
+     #+END_SRC
+
+
+* Compiling Kotlin to iOS Framework
+  1. Create a sample iOS project.
+  2. Create a kotlin project in the SoruceRoot director 
+     #+BEGIN_SRC sh
+     app 
+          - app.xcodeproj
+          - build.gradle
+          - scr
+              - main
+                   - kotlin
+                       - main.kt
+     #+END_SRC
+
+     #+BEGIN_SRC sh
+     mkdir -p src/main/kotlin
+     touch build.gradle
+     #+END_SRC
+
+  3. Put this in the gradle file
+#+BEGIN_SRC sh
+buildscript {
+    ext.kotlin_native_version = '0.6'
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://dl.bintray.com/jetbrains/kotlin-native-dependencies"
+        }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:$kotlin_native_version"
+    }
+}
+group 'nz.salect'
+version '0.1'
+apply plugin: "konan"
+konan.targets = ["iphone", "iphone_sim"]
+konanArtifacts {
+    framework('nativeLibs')
+}     
+
+#+END_SRC
+  1. Make the app folder a kotlin project. Easiest way to do is open IntelijeIdea and import the folder. It will set up the rest.
+  2. Place this as main.kt file
+     #+BEGIN_SRC java
+     package com.nocare.LibName
+     open class Words {
+          fun getWords():String {
+              return "I am from Kotlin :)"
+          }
+      }
+     #+END_SRC
+
+  3. Create a gradle wrapper. `gradle wrapper`
+
+  4. Invoke `./gradlew build`
+
+  5. Find the ios framework at /build/konan/bin/iphone_sim/....
+
+  6. Drag the framework to the ios sample project
+
+  7. Import it and use the words.
+
+  8. Run the app. See the kotlin emited framework being used. Be amused. 
+* Embedding the framework
+  1. Create a `build_embed_kotlin.sh` with the follwing script 
+#+BEGIN_SRC sh
+case "$PLATFORM_NAME" in
+    iphoneos)
+        NAME=iphone
+    ;;
+    iphonesimulator)
+        NAME=iphone_sim
+    ;;
+    *)
+        echo "Unknown platform: $PLATFORN_NAME"
+        exit 1
+    ;;
+esac
+
+# Build the kotlin project. Which will emit the frameworks 
+"$SRCROOT/gradlew" -p "$SRCROOT" "build"
+
+# pick the correct framework depending on the platform being built for 
+cp -a "$SRCROOT/build/konan/bin/$NAME/" "$SRCROOT/build/$NAME/"     
+#+END_SRC
+
+   Make this executable `chmod 774 build_embed_kotlin.sh` and add it to run script. 
+
+   2. Change the framework search path to `$PROJECT/build/`
+* Running Kotlin compiler on build time to automate the process
