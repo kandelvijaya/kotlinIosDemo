@@ -1,0 +1,6 @@
+version: "Apple Swift version 4.0.3 (swiftlang-900.0.74.1 clang-900.0.39.2)"
+options: "5b6ad0ddd42aef990d1a2b0f581bab1d"
+build_time: [1520416838, 450282000]
+inputs:
+  "/Users/vkandel/Desktop/KotliniOS/KotlinIOS/KotlinIOS/ViewController.swift": [1520416836, 0]
+  "/Users/vkandel/Desktop/KotliniOS/KotlinIOS/KotlinIOS/AppDelegate.swift": [1520416836, 0]
