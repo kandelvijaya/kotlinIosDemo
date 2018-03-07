@@ -13,7 +13,7 @@
 		28761CCB204FEFC400824EA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28761CCA204FEFC400824EA9 /* Assets.xcassets */; };
 		28761CCE204FEFC400824EA9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28761CCC204FEFC400824EA9 /* LaunchScreen.storyboard */; };
 		28761CD9204FEFC400824EA9 /* KotlinIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28761CD8204FEFC400824EA9 /* KotlinIOSTests.swift */; };
-		28761CE4204FF67B00824EA9 /* KotlinIOSLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28761CE3204FF67B00824EA9 /* KotlinIOSLib.framework */; };
+		28761CE9204FF9BC00824EA9 /* KotlinIOSLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 28761CE8204FF9BC00824EA9 /* KotlinIOSLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +26,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		28761CE7204FF99900824EA9 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				28761CE9204FF9BC00824EA9 /* KotlinIOSLib.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		28761CC0204FEFC400824EA9 /* KotlinIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KotlinIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28761CC3204FEFC400824EA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -37,7 +50,7 @@
 		28761CD4204FEFC400824EA9 /* KotlinIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KotlinIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		28761CD8204FEFC400824EA9 /* KotlinIOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KotlinIOSTests.swift; sourceTree = "<group>"; };
 		28761CDA204FEFC400824EA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		28761CE3204FF67B00824EA9 /* KotlinIOSLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KotlinIOSLib.framework; path = build/konan/bin/iphone_sim/KotlinIOSLib.framework; sourceTree = "<group>"; };
+		28761CE8204FF9BC00824EA9 /* KotlinIOSLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KotlinIOSLib.framework; path = build/iphone_sim/KotlinIOSLib.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,7 +58,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28761CE4204FF67B00824EA9 /* KotlinIOSLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +74,7 @@
 		28761CB7204FEFC400824EA9 = {
 			isa = PBXGroup;
 			children = (
-				28761CE3204FF67B00824EA9 /* KotlinIOSLib.framework */,
+				28761CE8204FF9BC00824EA9 /* KotlinIOSLib.framework */,
 				28761CC2204FEFC400824EA9 /* KotlinIOS */,
 				28761CD7204FEFC400824EA9 /* KotlinIOSTests */,
 				28761CC1204FEFC400824EA9 /* Products */,
@@ -110,6 +122,8 @@
 				28761CBC204FEFC400824EA9 /* Sources */,
 				28761CBD204FEFC400824EA9 /* Frameworks */,
 				28761CBE204FEFC400824EA9 /* Resources */,
+				28761CE6204FF8B500824EA9 /* Embed build kotlin  */,
+				28761CE7204FF99900824EA9 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -197,6 +211,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		28761CE6204FF8B500824EA9 /* Embed build kotlin  */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed build kotlin ";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SRCROOT/build_embed_kotlin_lib.sh\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		28761CBC204FEFC400824EA9 /* Sources */ = {
@@ -360,6 +391,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/build/",
 					"$(PROJECT_DIR)/build/konan/bin/iphone_sim",
 				);
 				INFOPLIST_FILE = KotlinIOS/Info.plist;
@@ -378,6 +410,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/build/",
 					"$(PROJECT_DIR)/build/konan/bin/iphone_sim",
 				);
 				INFOPLIST_FILE = KotlinIOS/Info.plist;
